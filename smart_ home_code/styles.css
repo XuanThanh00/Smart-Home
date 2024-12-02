@@ -1,0 +1,439 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}  
+
+.sidebar {
+  width: 150px; /* Giảm chiều rộng của sidebar */
+  background-color: #4a148c;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  color: #fff;
+  font-size: 18px; /* Giảm kích thước font */
+}
+
+.sidebar div {
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.2s, color 0.2s;
+  padding: 10px; /* Thêm padding cho các mục */
+  border-radius: 5px; /* Bo góc cho các mục */
+  width: 100%; /* Chiếm hết chiều rộng sidebar */
+  text-align: center; /* Căn giữa văn bản */
+}
+
+.sidebar div:hover {
+  transform: scale(1.1);
+  color: #bb86fc;
+  background-color: rgba(255, 255, 255, 0.1); /* Thêm nền sáng khi hover */
+}
+
+.main-content {
+  margin-left: 160px; /* Điều chỉnh khoảng cách với sidebar */
+  padding: 20px;
+}
+
+.header {
+  background-color: #fff3e0;
+  margin-left: 10px; /* Căn chỉnh hợp lý */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center align items */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng cho header */
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px; /* Tăng kích thước font */
+}
+
+/* Phần điều khiển thiết bị */
+.devices, .info-control {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-control-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.devices h2 {
+  margin-bottom: 15px; /* Thêm margin dưới tiêu đề */
+}
+
+
+.devices {
+  width: 37%; /* Tăng chiều rộng lên 40% */
+  height: 240px; /* Tăng chiều cao nếu cần */
+}
+
+.device-container {
+  width: 80%;
+  margin-left: 40px;
+  overflow-y: auto; /* Thêm cuộn dọc */
+  max-height: 170px; /* Giới hạn chiều cao cho phần cuộn */
+  padding: 10px; /* Thêm padding cho thiết bị */
+  background-color: #f0f0f0; /* Nền cho phần cuộn */
+}
+
+.device {
+  display: inline-block;
+  width: 100px; /* Giảm chiều rộng */
+  margin-left: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  padding: 8px; /* Giảm padding */
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng cho thiết bị */
+}
+
+.device.on {
+  transform: scale(1.05);
+  background-color: #d1ffd1; /* Nền xanh nhạt khi bật */
+}
+
+.device.off {
+  transform: scale(1);
+  background-color: #ffe0e0; /* Nền đỏ nhạt khi tắt */
+}
+
+.device-icon {
+  font-size: 14px; /* Giảm kích thước biểu tượng */
+  margin-bottom: 4px; /* Giảm khoảng cách dưới biểu tượng */
+}
+
+.device-status {
+  font-size: 10px; /* Giảm kích thước văn bản trạng thái */
+  color: #666;
+  margin-top: 2px; /* Giảm khoảng cách trên trạng thái */
+}
+
+.info-control {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 57%;
+  height: 270px;
+  margin-bottom: 0px;
+  margin-left: 10px; /* Căn chỉnh nội dung */
+}
+
+.temperature, .humidity, .airquality {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 300px;
+}
+
+.info {
+    font-size: 16px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Thêm khoảng cách giữa các phần tử */
+    width: 100%;
+}
+
+.chartts {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Khoảng cách giữa hai iframe */
+  width: 70%; /* Đảm bảo chiếm hết chiều ngang của container */
+}
+
+.chartts iframe {
+  flex: 1;
+  max-width: 49%; /* Điều chỉnh xuống 49% để tránh bị tràn */
+  box-sizing: border-box; /* Đảm bảo viền và padding không làm tràn chiều rộng */
+}
+
+.hum-and-temp-chart {
+  margin-right: 15px;
+}
+
+.airquality {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.rang {
+  text-align: center;
+}
+
+.rang-title {
+  display: inline-block;
+  width: 200px;
+}
+
+.rang-number {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  border-width: 0;
+  font-size: 40px;
+  font-weight: 900;
+  background-color: #fff;
+  color: #0093d7;
+}
+
+.temperature {
+  width: 200px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: column;
+  border-radius: 7px;
+}
+
+.humidity {
+  width: 200px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  flex-direction: column;
+  border-radius: 7px;
+}
+
+.circular-bar {
+  width: 200px;
+  height: 200px;
+  background: conic-gradient(#4285f4 1.5deg, #e8f0f7 0deg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+  -6px -6px 10px -1px rgba(255,255,255,0.7);
+  margin-bottom: 40px;
+}
+
+.circular-bar::before {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  background: #e8f0f7;
+  border-radius: 50%;
+  box-shadow: inset 6px 6px 10px -1px rgba(210, 207, 207, 0.15),
+  inset -6px -6px 10px -1px rgba(255,255,255,0.7);
+}
+
+.percent {
+  z-index: 10;
+  font-size: 30px;
+}
+
+.temp {
+  z-index: 10;
+  font-size: 30px;
+}
+
+#set-aqi {
+  display: none; /* Hoặc sử dụng visibility: hidden; */
+}
+
+.gauge {
+  display: inline-block;
+}
+
+.gauge > div[role=meter] {
+  border-radius: 8rem 8rem 0 0;
+  border: 1px solid black;
+  width: 16rem;
+  height: 8rem;
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+    background: conic-gradient(from 0deg at 50% 100%,
+                                red 30deg, DarkViolet 30deg 60deg,
+                                Maroon 60deg 91deg, transparent 91deg 269deg,
+                                LimeGreen 269deg 300deg, Yellow 300deg 330deg,
+                                DarkOrange 330deg 360deg);
+  }
+  
+  .gauge > label {
+    font-size: 14px;
+    color: #f0f0f0;
+    text-align: center;
+    background-color: black;
+    padding: .2rem 0;
+    display: block;
+  }
+  
+  .dial {
+    background-color: #00ff00;
+    transition: background-color 1s, color .25s;
+    border-radius: 10rem 10rem 0 0;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 1rem #000;
+    border-bottom: none;
+    box-sizing: border-box;
+    color: #000;
+  }
+  
+  .dial.white {
+    color: #fff;
+  }
+  
+  .dial > span {
+    text-align: center;
+    font-family: sans-serif;
+  }
+  
+  .dial > .arrow {
+    position: absolute;
+    left: calc(50% - .25rem);
+    bottom: 0;
+    width: .5rem;
+    height: calc(100% + 1px);
+    background-color: transparent;
+    transform-origin: bottom center;
+    transform: rotate(-90deg);
+    transition: transform 1s;
+  }
+  
+  .dial > .arrow:after {
+    content: "";
+    border-left: .5rem solid transparent;
+    border-right: .5rem solid transparent;
+    border-top: .5rem solid #000;
+    position: absolute;
+    left: calc(50% - .5rem);
+    top: 0;
+    width: 0;
+    height: 0;
+    transition: border-color .25s;
+  }
+  
+  .dial.white > .arrow:after {
+    border-top-color: #fff;
+  }
+  
+  .aqi-num {
+    font-weight: bold;
+    font-size: 120%;
+    margin-top: 1.25rem;
+  }
+  
+  @media (forced-colors: active) {
+    .dial {
+      border: 2px solid black;
+      border-bottom: none;
+    }
+    
+    .gauge > div[role=meter] {
+      border-width: 2px;
+      border-bottom: none;
+    }
+    
+    .gauge > label {
+      border: 2px solid black;
+    }
+  }
+  .chart-container {
+    width: 90%; 
+    height:210px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    background-color: #ffffff;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Tạo khoảng cách trên và dưới, căn giữa */
+}
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-heading {
+  font-family: "Rubik", sans-serif;
+  color: #023047;
+  text-transform: uppercase;
+  font-size: 24px;
+  text-align: center;
+}
+
+.chart-container {
+  width: 320px;
+}
+
+.programming-stats {
+  font-family: "Rubik", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0 auto;
+  width: fit-content;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 8px 32px;
+  color: #023047;
+  transition: all 400ms ease;
+}
+
+
+.programming-stats .details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.programming-stats .details ul li {
+  font-size: 16px;
+  margin: 12px 0;
+  text-transform: uppercase;
+}
+
+.programming-stats .details .percentage {
+  font-weight: 700;
+  color: #e63946;
+}
+
+.powerchart-container{
+  width: 100%;
+  height: 370px;
+}

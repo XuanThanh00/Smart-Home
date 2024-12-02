@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="image/images.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+    <script src="function.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div onclick="location.href='index.html'">🏠 Living Room</div>
+        <div onclick="location.href='bedroom.html'">🛏️ Bed Room</div>
+        <div onclick="location.href='kitchen.html'">🍽️ Kitchen</div>
+        <div onclick="location.href='dashboard.html'">📈 Dashboard</div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>📈 DASHBOARD</h1>
+            <h1 id="time"></h1> 
+        </div>
+    <div>
+        <iframe width="650" height="270" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2691502/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=TEMPERATURE&type=line&width=650&height=270"></iframe>
+        <iframe width="650" height="270" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2691502/charts/2?bgcolor=%23ffffff&color=%230000FF&dynamic=true&results=60&title=HUMIDITY&type=line&width=650&height=270"></iframe>
+
+    </div>
+    <div class="powerchart-container">
+        <canvas id="powerConsumptionChart"></canvas>
+    </div>
+    <script>
+        const currentDate = new Date();
+        const currentDay = currentDate.getDate();
+
+        // Tạo mảng dữ liệu điện năng tiêu thụ
+        const powerConsumptionData = Array.from({ length: 30 }, (_, i) => {
+            if (i + 1 < currentDay) {
+                // Các ngày trước ngày hiện tại, sử dụng giá trị random
+                return Math.max(0, Math.floor(Math.random() * 100));
+            } else if (i + 1 === currentDay) {
+                // Ngày hiện tại, tính toán dựa trên thời gian hoạt động của thiết bị
+                let totalPower = 0;
+                const startTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
+                const currentTime = new Date();
+                const elapsedHours = (currentTime - startTime) / (1000 * 60 * 60);
+
+                // Tính toán điện năng tiêu thụ cho các thiết bị
+                totalPower += Math.max(0, elapsedHours * 0.5); // Air-conditioner: 0.5 kW
+                totalPower += Math.max(0, elapsedHours * 0.2); // TV: 0.2 kW
+                totalPower += Math.max(0, elapsedHours * 0.1); // Music System: 0.1 kW
+                totalPower += Math.max(0, elapsedHours * 0.05); // Lamps: 0.05 kW
+
+                return totalPower;
+            } else {
+                // Các ngày sau ngày hiện tại, sử dụng giá trị 0
+                return 0;
+            }
+        });
+
+        // Tạo biểu đồ cột
+        const ctx = document.getElementById('powerConsumptionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Array.from({ length: currentDay }, (_, i) => `${i + 1}`),
+                datasets: [{
+                    label: 'Power Consumption (kWh)',
+                    data: powerConsumptionData,
+                    backgroundColor: '#4a148c',
+                    borderColor: '#4a148c',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Power Consumption (kWh)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Day'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Household Power Consumption'
+                    }
+                },
+                maintainAspectRatio: false // Cho phép biểu đồ mở rộng theo khung chứa
+            }
+        });
+    </script>
+    </div>
+</body>
+</html>

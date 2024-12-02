@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="image/images.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap"
+      rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    <script src="function.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div onclick="handleRoomChange('phongkhach', 'index.html');">🏠 Living Room</div>
+        <div onclick="handleRoomChange('phongngu', 'bedroom.html');">🛏️Bed Room</div>
+        <div onclick="handleRoomChange('nhabep', 'kitchen.html');">🍽️ Kitchen</div>
+        <div onclick="location.href='dashboard.html';">📈 Dashboard</div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>🏠 LIVING ROOM</h1>
+            <h1 id="time"></h1> 
+        </div>
+    <div class="info-control-container">
+        <div class="info-control">
+            <div class="temperature">
+                <div class="circular-bar">
+                    <div class="percent"><h3 id="temperatureDisplay"></h3></div>
+                </div>
+                <label>TEMPERATURE</label>
+            </div>
+            <div class="humidity">  
+                <div class="circular-bar">
+                    <div class="percent"> <h3 id="humidityDisplay"><h3></div>
+                </div>
+                <label>HUMIDITY</label>
+            </div>
+            <!-- air quality -->
+            <div>
+              <div class="gauge", style="padding: 50px;",>
+                <div role="meter" aria-valuemin="0" aria-valuemax="500" aria-labelledby="meter-label">
+                  <div class="dial"><span class="aqi-num" id="aqi-num"></span><span>PM2.5</span><div class="arrow"></div></div>
+                </div>
+              </div>
+              </div>
+              
+        </div>
+
+        <div class="devices">
+            <h2>My Devices</h2>
+            <div class="device-container">
+                <div class="device" data-device-id="ac" data-room="Phongkhach" onclick="toggleDevice(this)">
+                    <div class="device-icon">❄️</div>
+                    A/C
+                    <div class="device-status">Off</div>
+                </div>
+                <div class="device" data-device-id="tv" data-room="Phongkhach" onclick="toggleDevice(this)">
+                    <div class="device-icon">📺</div>
+                    TV
+                    <div class="device-status">Off</div>
+                </div>
+                <div class="device" data-device-id="music" data-room="Phongkhach" onclick="toggleDevice(this)">
+                    <div class="device-icon">🎵</div>
+                    Music
+                    <div class="device-status">Off</div>
+                </div>
+                <div class="device" data-device-id="lamps" data-room="Phongkhach" onclick="toggleDevice(this)">
+                    <div class="device-icon">💡</div>
+                    Lamps
+                    <div class="device-status">Off</div>
+                </div>
+                
+                <!-- Thêm nhiều thiết bị nếu cần -->
+            </div>
+        </div>
+    </div>
+        
+        <div class="flex-container">
+            <div class="chartts">
+                <iframe width="350" height="300" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2691502/charts/1?average=10&bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=TEMPERATURE&type=line&width=400&height=300"></iframe>
+                <iframe width="350" height="300" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2691502/charts/2?average=10&bgcolor=%23ffffff&color=%230000FF&dynamic=true&results=60&title=HUMIDITY&type=line&width=400&height=300"></iframe>
+            </div>
+            <div class="programming-stats">
+              <div class="chart-container">
+                <canvas class="my-chart"></canvas>
+              </div>
+              <div class="details">
+                <ul></ul>
+              </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </div> 
+    </div> 
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDV2jEgdNtpL3gbye18UomihVY2MlRlZrI",
+            authDomain: "esp32-dc329.firebaseapp.com",
+            databaseURL: "https://esp32-dc329-default-rtdb.firebaseio.com",
+            projectId: "esp32-dc329",
+            storageBucket: "esp32-dc329.appspot.com",
+            messagingSenderId: "430769850816",
+            appId: "1:430769850816:web:69b4398c0d600f711d6025",
+            measurementId: "G-5PC72SN275"
+            };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        // Get elements
+        const temperatureDisplay = document.getElementById('temperatureDisplay');
+        const humidityDisplay = document.getElementById('humidityDisplay');
+        const airdisplay = document.getElementById('aqi-num');
+
+        const dbRefTemperature = firebase.database().ref("Phongkhach").child("Nhiet do");
+        const dbRefHumidity = firebase.database().ref("Phongkhach").child("Do am");
+        const dbRefAirQuality = firebase.database().ref("Phongkhach").child("Khongkhi");
+    </script>
+</body>
+</html>
