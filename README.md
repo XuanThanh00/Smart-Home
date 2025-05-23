@@ -2,6 +2,7 @@
 This project is a comprehensive smart home solution that leverages the Internet of Things (IoT) to monitor and control home environmental conditions in real-time. It focuses on real-time sensing, cloud data synchronization, interactive visualization, and energy-efficient automation.
 
 🚀 Features
+
 Real-Time Environmental Monitoring:
 Continuously measures temperature, humidity, and air quality using embedded sensors.
 
